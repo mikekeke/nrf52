@@ -7,15 +7,14 @@ edition = "2021"
 
 [dependencies]
 cortex-m = "=0.7.6"
-cortex-m-rt = { version = "=0.7.3", features = ["device"] }
+cortex-m-rt = { version = "=0.6.15", features = ["device"] }
 cortex-m-semihosting = "=0.5.0"
 alloc-cortex-m = "=0.4.4"
 panic-halt = "=0.2.0"
 nrf52840-hal = "0.16.0"
-#defmt = { git = "https://github.com/knurling-rs/defmt", branch = "main" }
-#defmt-rtt = { git = "https://github.com/knurling-rs/defmt", branch = "main" }
+nrf52840-dk-bsp = "0.2.0"
+nb = "1.0.0"
 
-nrf52840-dk-bsp = "0.1.0"
 
 
 [profile.release]
