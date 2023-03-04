@@ -1,6 +1,8 @@
 #![no_main]
 #![no_std]
 
+use core::borrow::Borrow;
+
 use nrf52840_hal as _; // memory layout
 use panic_halt as _;
 
@@ -9,6 +11,7 @@ use nrf52840_dk_bsp::{
     hal::{
         prelude::*,
         timer::{self, Timer},
+        Temp,
     },
     Board,
 };
@@ -23,13 +26,16 @@ fn main() -> ! {
 
     let mut timer = Timer::new(nrf52.TIMER0);
 
+    let mut temp_sensor = Temp::new(nrf52.TEMP);
+
     loop {
         nrf52.leds.led_2.enable();
         delay(&mut timer, 250_000); // 250ms
         nrf52.leds.led_2.disable();
         delay(&mut timer, 1_000_000); // 1s
 
-        hprintln!("test").unwrap();
+        let temp_c: i32 = temp_sensor.measure().to_num();
+        hprintln!("Temp {}", temp_c).unwrap();
     }
 }
 
