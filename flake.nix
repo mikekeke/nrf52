@@ -24,6 +24,8 @@
         rustDevShell = pkgs.mkShell {
           buildInputs = [
             pkgs.nixpkgs-fmt
+            pkgs.pkg-config
+            pkgs.libusb
 
             (rust.override {
               extensions = [ "rust-analyzer" "rust-src" ];

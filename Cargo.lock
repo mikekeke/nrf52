@@ -280,13 +280,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "host"
-version = "0.1.0"
-dependencies = [
- "serialport",
-]
-
-[[package]]
 name = "libc"
 version = "0.2.139"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -484,7 +477,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "nrf52840dk-sample"
+name = "nrf52840dk"
 version = "0.1.0"
 dependencies = [
  "cortex-m 0.7.7",
@@ -645,6 +638,13 @@ name = "usb-device"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1f6cc3adc849b5292b4075fc0d5fdcf2f24866e88e336dd27a8943090a520508"
+
+[[package]]
+name = "usb-host"
+version = "0.1.0"
+dependencies = [
+ "serialport",
+]
 
 [[package]]
 name = "vcell"
