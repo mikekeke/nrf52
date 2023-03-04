@@ -12,16 +12,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "alloc-cortex-m"
-version = "0.4.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "483c3bd0f9a7bb982b72988f5f173d29687c432d8013c1d3232635e6c0f0a60c"
-dependencies = [
- "cortex-m 0.7.6",
- "linked_list_allocator",
-]
-
-[[package]]
 name = "as-slice"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -96,15 +86,15 @@ dependencies = [
  "aligned",
  "bare-metal 0.2.5",
  "bitfield",
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
  "volatile-register",
 ]
 
 [[package]]
 name = "cortex-m"
-version = "0.7.6"
+version = "0.7.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "70858629a458fdfd39f9675c4dc309411f2a3f83bede76988d81bf1a0ecee9e0"
+checksum = "8ec610d8f49840a5b376c69663b6369e71f4b34484b9b2eb29fb918d92516cb9"
 dependencies = [
  "bare-metal 0.2.5",
  "bitfield",
@@ -135,11 +125,11 @@ dependencies = [
 
 [[package]]
 name = "cortex-m-semihosting"
-version = "0.5.0"
+version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c23234600452033cc77e4b761e740e02d2c4168e11dbf36ab14a0f58973592b0"
+checksum = "6bffa6c1454368a6aa4811ae60964c38e6996d397ff8095a8b9211b1c1f749bc"
 dependencies = [
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
 ]
 
 [[package]]
@@ -254,12 +244,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "linked_list_allocator"
-version = "0.10.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e322f259d225fbae43a1b053b2dc6a5968a6bdf8b205f5de684dab485b95030e"
-
-[[package]]
 name = "nb"
 version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -275,20 +259,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "546c37ac5d9e56f55e73b677106873d9d9f5190605e41a856503623648488cae"
 
 [[package]]
-name = "nrf"
-version = "0.1.0"
-dependencies = [
- "alloc-cortex-m",
- "cortex-m 0.7.6",
- "cortex-m-rt",
- "cortex-m-semihosting",
- "nb 1.0.0",
- "nrf52840-dk-bsp",
- "nrf52840-hal 0.16.0",
- "panic-halt",
-]
-
-[[package]]
 name = "nrf-hal-common"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -296,7 +266,7 @@ checksum = "927d948c3642ccd6228656760df3ec590ec2c04fa5f4a9b414b23f85540de512"
 dependencies = [
  "cast 0.2.7",
  "cfg-if",
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
  "embedded-dma 0.1.2",
  "embedded-hal",
  "embedded-storage 0.1.0",
@@ -316,7 +286,7 @@ checksum = "cd244c63d588066d75cffdcae8a03299fd5fb272e36bdde4a9f922f3e4bc6e4b"
 dependencies = [
  "cast 0.3.0",
  "cfg-if",
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
  "embedded-dma 0.2.0",
  "embedded-hal",
  "embedded-storage 0.3.0",
@@ -335,7 +305,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "640e88d4c108743c667f03320d0c9ab24a20f183a7a1b18bde7891ee13fd92c5"
 dependencies = [
  "bare-metal 1.0.0",
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
  "critical-section 0.2.8",
  "usb-device",
  "vcell",
@@ -347,7 +317,7 @@ version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "66b2907c0b3ec4d264981c1fc5a2321d51c463d5a63d386e573f00e84d5495e6"
 dependencies = [
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
  "critical-section 1.1.1",
  "usb-device",
  "vcell",
@@ -359,7 +329,7 @@ version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f35ecc120bcf72945d249b0f75c740f658b79502202ffd2d45fd29b9ecf6084"
 dependencies = [
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
  "embedded-hal",
  "nrf52840-hal 0.13.0",
 ]
@@ -404,9 +374,22 @@ version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "30713f36f1be02e5bc9abefa30eae4a1f943d810f199d4923d3ad062d1be1b3d"
 dependencies = [
- "cortex-m 0.7.6",
+ "cortex-m 0.7.7",
  "cortex-m-rt",
  "vcell",
+]
+
+[[package]]
+name = "nrf52840dk-sample"
+version = "0.1.0"
+dependencies = [
+ "cortex-m 0.7.7",
+ "cortex-m-rt",
+ "cortex-m-semihosting",
+ "nb 1.0.0",
+ "nrf52840-dk-bsp",
+ "nrf52840-hal 0.16.0",
+ "panic-halt",
 ]
 
 [[package]]
