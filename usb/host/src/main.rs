@@ -8,15 +8,15 @@ fn main() {
         println!("{}", p.port_name);
     }
 
-    // ! sudo chown mike /dev/ttyACM0   
-    let mut port = serialport::new("/dev/ttyACM0", 115_200)
-        .timeout(Duration::from_millis(100000))
-        .open()
-        .expect("Failed to open port");
+    // // ! sudo chown mike /dev/ttyACM0   
+    // let mut port = serialport::new("/dev/ttyACM0", 115_200)
+    //     .timeout(Duration::from_millis(100000))
+    //     .open()
+    //     .expect("Failed to open port");
 
-    println!("writing");
-    let w_res = port.write(b"tests00dsdsdsdsd usbdddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-    println!("writing {:?}", w_res);
+    // println!("writing");
+    // let w_res = port.write(b"tests00dsdsdsdsd usbdddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+    // println!("writing {:?}", w_res);
 
     
     // println!("reading");
