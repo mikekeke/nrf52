@@ -14,10 +14,15 @@ fn main() {
         .open()
         .expect("Failed to open port");
 
-    // port.write(tx_id.to_bytes()).expect("Write failed!");
+    println!("writing");
+    let w_res = port.write(b"tests00dsdsdsdsd usbdddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+    println!("writing {:?}", w_res);
 
-    let mut buf: Vec<u8> = vec![0; 64];
-    port.read(buf.as_mut_slice()).expect("Found no data!");
-
-    println!("Buf: {:?}", buf)
+    
+    // println!("reading");
+    // let mut buf: Vec<u8> = vec![0; 64];
+    // port.read(buf.as_mut_slice()).expect("Found no data!");
+    
+    // println!("buf");
+    // println!("Buf: {:?}", buf)
 }

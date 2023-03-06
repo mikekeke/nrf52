@@ -1,48 +1,60 @@
 #![no_main]
 #![no_std]
 
-use core::borrow::Borrow;
+use cortex_m_semihosting::hprintln;
 
-use nrf52840_hal as _; // memory layout
 use panic_halt as _;
 
-use nb::block;
-use nrf52840_dk_bsp::{
-    hal::{
-        prelude::*,
-        timer::{self, Timer},
-        Temp,
-    },
-    Board,
-};
-
-use cortex_m_semihosting::hprintln;
-// use nrf52840_hal::pac::Peripherals;
-// use nrf52840_hal::temp::Temp;
+use cortex_m_rt;
+use nrf52840_hal::clocks::Clocks;
+use nrf52840_hal::usbd::{UsbPeripheral, Usbd};
+use usb_device::class_prelude::UsbBusAllocator;
+use usb_device::device::{UsbDeviceBuilder, UsbVidPid};
+use usbd_serial::{SerialPort, USB_CLASS_CDC};
 
 #[cortex_m_rt::entry]
 fn main() -> ! {
-    let mut nrf52 = Board::take().unwrap();
+    hprintln!("Test").unwrap();
+    let periph = nrf52840_hal::pac::Peripherals::take().unwrap();
+    let clocks = Clocks::new(periph.CLOCK);
+    let clocks = clocks.enable_ext_hfosc();
 
-    let mut timer = Timer::new(nrf52.TIMER0);
+    let usb_bus = UsbBusAllocator::new(Usbd::new(UsbPeripheral::new(periph.USBD, &clocks)));
+    let mut serial = SerialPort::new(&usb_bus);
 
-    let mut temp_sensor = Temp::new(nrf52.TEMP);
-
+    // let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
+    let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(4966, 4177))
+        .manufacturer("SEGGER")
+        .product("J-Link")
+        .serial_number("001050281902")
+        .device_class(USB_CLASS_CDC)
+        // .max_packet_size_0(64) // (makes control transfers 8x faster)
+        .build();
+    let mut b = false;
     loop {
-        nrf52.leds.led_2.enable();
-        delay(&mut timer, 250_000); // 250ms
-        nrf52.leds.led_2.disable();
-        delay(&mut timer, 1_000_000); // 1s
+        hprintln!("loop").unwrap();
+        serial.write(b"test").unwrap();
 
-        let temp_c: i32 = temp_sensor.measure().to_num();
-        hprintln!("Temp {}", temp_c).unwrap();
+        // if !usb_dev.poll(&mut [&mut serial]) {
+        //     if !b {
+        //         b = true;
+        //     }
+        //     continue;
+        // }
+        // hprintln!("loop").unwrap();
+        
+        // let mut buf = [0u8; 32];
+        
+        // hprintln!("reading").unwrap();
+        // match serial.read(&mut buf) {
+        //     Ok(_) => {
+        //         hprintln!("serial.read ok").unwrap();
+
+        //         serial.write(b"test").unwrap();
+        //     }
+        //     _ => {
+        //         hprintln!("serial.read NOK").unwrap();
+        //     }
+        // }
     }
-}
-
-fn delay<T>(timer: &mut Timer<T>, cycles: u32)
-where
-    T: timer::Instance,
-{
-    timer.start(cycles);
-    let _ = block!(timer.wait());
 }

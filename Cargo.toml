@@ -3,4 +3,5 @@
 members = [
   "test-app",
   "usb/host",
+  "usb/device",
 ]
